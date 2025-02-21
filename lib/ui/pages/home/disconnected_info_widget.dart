@@ -21,14 +21,14 @@ class DisconnectedInfoWidget extends StatelessWidget {
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 16),
-        Text(
-          l.pageHomeDisconnectedDesc,
-          textAlign: TextAlign.center,
-        ),
+        Text(l.pageHomeDisconnectedDesc, textAlign: TextAlign.center),
         const SizedBox(height: 16),
         ElevatedButton(
-          onPressed: () =>
-              context.read<HeadphonesConnectionCubit>().openBluetoothSettings(),
+          onPressed:
+              () =>
+                  context
+                      .read<HeadphonesConnectionCubit>()
+                      .openBluetoothSettings(),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(

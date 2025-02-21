@@ -33,8 +33,9 @@ final class HuaweiFreeBuds4iImpl extends HuaweiFreeBuds4i {
 
   HuaweiFreeBuds4iImpl(this._mbb, this._bluetoothDevice) {
     // hope this will nicely play with closing, idk honestly
-    final aliasStreamSub = _bluetoothDevice.alias
-        .listen((alias) => _bluetoothAliasCtrl.add(alias));
+    final aliasStreamSub = _bluetoothDevice.alias.listen(
+      (alias) => _bluetoothAliasCtrl.add(alias),
+    );
     _bluetoothAliasCtrl.onCancel = () => aliasStreamSub.cancel();
 
     _mbb.stream.listen(
@@ -59,8 +60,9 @@ final class HuaweiFreeBuds4iImpl extends HuaweiFreeBuds4i {
       },
     );
     _initRequestInfo();
-    _watchdogStreamSub =
-        Stream.periodic(const Duration(seconds: 3)).listen((_) {
+    _watchdogStreamSub = Stream.periodic(const Duration(seconds: 3)).listen((
+      _,
+    ) {
       if ([
         batteryLevel.valueOrNull,
         // no alias because it's okay to be null 👍
@@ -79,22 +81,25 @@ final class HuaweiFreeBuds4iImpl extends HuaweiFreeBuds4i {
     switch (cmd.args) {
       // # AncMode
       case {1: [_, var ancModeCode, ...]} when cmd.isAbout(_Cmd.getAnc):
-        final mode =
-            AncMode.values.firstWhereOrNull((e) => e.mbbCode == ancModeCode);
+        final mode = AncMode.values.firstWhereOrNull(
+          (e) => e.mbbCode == ancModeCode,
+        );
         if (mode != null) _ancModeCtrl.add(mode);
         break;
       // # BatteryLevels
       case {2: var level, 3: var status}
           when cmd.serviceId == 1 &&
               (cmd.commandId == 39 || cmd.commandId == 8):
-        _lrcBatteryCtrl.add(LRCBatteryLevels(
-          level[0] == 0 ? null : level[0],
-          level[1] == 0 ? null : level[1],
-          level[2] == 0 ? null : level[2],
-          status[0] == 1,
-          status[1] == 1,
-          status[2] == 1,
-        ));
+        _lrcBatteryCtrl.add(
+          LRCBatteryLevels(
+            level[0] == 0 ? null : level[0],
+            level[1] == 0 ? null : level[1],
+            level[2] == 0 ? null : level[2],
+            status[0] == 1,
+            status[1] == 1,
+            status[2] == 1,
+          ),
+        );
         break;
       // # Settings(autoPause)
       case {1: [var autoPauseCode, ...]} when cmd.isAbout(_Cmd.getAutoPause):
@@ -105,10 +110,12 @@ final class HuaweiFreeBuds4iImpl extends HuaweiFreeBuds4i {
           when cmd.isAbout(_Cmd.getGestureDoubleTap):
         _settingsCtrl.add(
           lastSettings.copyWith(
-            doubleTapLeft:
-                DoubleTap.values.firstWhereOrNull((e) => e.mbbCode == leftCode),
-            doubleTapRight: DoubleTap.values
-                .firstWhereOrNull((e) => e.mbbCode == rightCode),
+            doubleTapLeft: DoubleTap.values.firstWhereOrNull(
+              (e) => e.mbbCode == leftCode,
+            ),
+            doubleTapRight: DoubleTap.values.firstWhereOrNull(
+              (e) => e.mbbCode == rightCode,
+            ),
           ),
         );
         break;
@@ -116,8 +123,9 @@ final class HuaweiFreeBuds4iImpl extends HuaweiFreeBuds4i {
       case {1: [var holdCode, ...]} when cmd.isAbout(_Cmd.getGestureHold):
         _settingsCtrl.add(
           lastSettings.copyWith(
-            holdBoth:
-                Hold.values.firstWhereOrNull((e) => e.mbbCode == holdCode),
+            holdBoth: Hold.values.firstWhereOrNull(
+              (e) => e.mbbCode == holdCode,
+            ),
           ),
         );
         break;
@@ -195,8 +203,9 @@ final class HuaweiFreeBuds4iImpl extends HuaweiFreeBuds4i {
     }
     if ((newSettings.holdBothToggledAncModes ?? prev.holdBothToggledAncModes) !=
         prev.holdBothToggledAncModes) {
-      _mbb.sink.add(_Cmd.gestureHoldToggledAncModes(
-          newSettings.holdBothToggledAncModes!));
+      _mbb.sink.add(
+        _Cmd.gestureHoldToggledAncModes(newSettings.holdBothToggledAncModes!),
+      );
       _mbb.sink.add(_Cmd.getGestureHold);
       _mbb.sink.add(_Cmd.getGestureHoldToggledAncModes);
     }
@@ -219,8 +228,8 @@ abstract class _Cmd {
   static const getAnc = MbbCommand(43, 42);
 
   static MbbCommand anc(AncMode mode) => MbbCommand(43, 4, {
-        1: [mode.mbbCode, mode == AncMode.off ? 0 : 255]
-      });
+    1: [mode.mbbCode, mode == AncMode.off ? 0 : 255],
+  });
 
   static const getGestureDoubleTap = MbbCommand(1, 32);
 
@@ -233,8 +242,8 @@ abstract class _Cmd {
   static const getGestureHold = MbbCommand(43, 23);
 
   static MbbCommand gestureHold(Hold gestureHold) => MbbCommand(43, 22, {
-        1: [gestureHold.mbbCode]
-      });
+    1: [gestureHold.mbbCode],
+  });
 
   static const getGestureHoldToggledAncModes = MbbCommand(43, 25);
 
@@ -256,52 +265,56 @@ abstract class _Cmd {
       mbbValue = 1;
     }
     if (toggledModes.length == 3) mbbValue = 2;
-    if (se.equals(
-        toggledModes, {AncMode.noiseCancelling, AncMode.transparency})) {
+    if (se.equals(toggledModes, {
+      AncMode.noiseCancelling,
+      AncMode.transparency,
+    })) {
       mbbValue = 3;
     }
     if (se.equals(toggledModes, {AncMode.off, AncMode.transparency})) {
       mbbValue = 4;
     }
     if (mbbValue == null) {
-      logg.w("Unknown mbbValue for $toggledModes"
-          " - setting as 2 for 'all of them' as a recovery");
+      logg.w(
+        "Unknown mbbValue for $toggledModes"
+        " - setting as 2 for 'all of them' as a recovery",
+      );
       mbbValue = 2;
     }
     return MbbCommand(43, 24, {
       1: [mbbValue],
-      2: [mbbValue]
+      2: [mbbValue],
     });
   }
 
   static const getAutoPause = MbbCommand(43, 17);
 
   static MbbCommand autoPause(bool enabled) => MbbCommand(43, 16, {
-        1: [enabled ? 1 : 0]
-      });
+    1: [enabled ? 1 : 0],
+  });
 }
 
 extension _FB4iAncMode on AncMode {
   int get mbbCode => switch (this) {
-        AncMode.noiseCancelling => 1,
-        AncMode.off => 0,
-        AncMode.transparency => 2,
-      };
+    AncMode.noiseCancelling => 1,
+    AncMode.off => 0,
+    AncMode.transparency => 2,
+  };
 }
 
 extension _FB4iDoubleTap on DoubleTap {
   int get mbbCode => switch (this) {
-        DoubleTap.nothing => 255,
-        DoubleTap.voiceAssistant => 0,
-        DoubleTap.playPause => 1,
-        DoubleTap.next => 2,
-        DoubleTap.previous => 7
-      };
+    DoubleTap.nothing => 255,
+    DoubleTap.voiceAssistant => 0,
+    DoubleTap.playPause => 1,
+    DoubleTap.next => 2,
+    DoubleTap.previous => 7,
+  };
 }
 
 extension _FB4iHold on Hold {
   int get mbbCode => switch (this) {
-        Hold.nothing => 255,
-        Hold.cycleAnc => 10,
-      };
+    Hold.nothing => 255,
+    Hold.cycleAnc => 10,
+  };
 }

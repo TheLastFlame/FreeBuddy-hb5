@@ -27,18 +27,21 @@ class NotPairedInfoWidget extends StatelessWidget {
             const SizedBox(height: 16),
             FilledButton(
               child: Text(l.pageHomeNotPairedPairOpenSettings),
-              onPressed: () => context
-                  .read<HeadphonesConnectionCubit>()
-                  .openBluetoothSettings(),
+              onPressed:
+                  () =>
+                      context
+                          .read<HeadphonesConnectionCubit>()
+                          .openBluetoothSettings(),
             ),
             const SizedBox(height: 16),
             TextButton(
               child: Text(l.pageHomeNotPairedPairOpenDemo),
-              onPressed: () => launchUrlString(
-                'https://freebuddy-web-demo.netlify.app/',
-                mode: LaunchMode.externalApplication,
-              ),
-            )
+              onPressed:
+                  () => launchUrlString(
+                    'https://freebuddy-web-demo.netlify.app/',
+                    mode: LaunchMode.externalApplication,
+                  ),
+            ),
           ],
         ),
       ),

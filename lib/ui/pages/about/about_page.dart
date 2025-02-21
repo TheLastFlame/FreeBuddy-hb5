@@ -12,9 +12,13 @@ class AboutPage extends StatelessWidget {
     return TextSpan(
       text: text,
       style: const TextStyle(color: Colors.blue),
-      recognizer: TapGestureRecognizer()
-        ..onTap = () =>
-            launchUrlString(url ?? text, mode: LaunchMode.externalApplication),
+      recognizer:
+          TapGestureRecognizer()
+            ..onTap =
+                () => launchUrlString(
+                  url ?? text,
+                  mode: LaunchMode.externalApplication,
+                ),
     );
   }
 
@@ -29,16 +33,16 @@ class AboutPage extends StatelessWidget {
     newline() => const TextSpan(text: "\n");
 
     Widget divider() => Column(
-          children: [
-            const SizedBox(height: 6.0),
-            Container(
-              height: 1.0,
-              color: t.dividerColor,
-              margin: const EdgeInsets.symmetric(vertical: 16.0),
-            ),
-            const SizedBox(height: 6.0),
-          ],
-        );
+      children: [
+        const SizedBox(height: 6.0),
+        Container(
+          height: 1.0,
+          color: t.dividerColor,
+          margin: const EdgeInsets.symmetric(vertical: 16.0),
+        ),
+        const SizedBox(height: 6.0),
+      ],
+    );
 
     return Scaffold(
       appBar: AppBar(title: Text(l.pageAboutTitle)),
@@ -116,8 +120,10 @@ class AboutPage extends StatelessWidget {
             ),
             divider(),
             TextButton(
-              onPressed: () =>
-                  Navigator.of(context).pushNamed('/settings/about/licenses'),
+              onPressed:
+                  () => Navigator.of(
+                    context,
+                  ).pushNamed('/settings/about/licenses'),
               child: Text(l.pageAboutOpenSourceLicensesBtn),
             ),
           ],

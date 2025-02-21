@@ -30,9 +30,11 @@ class BluetoothDisabledInfoWidget extends StatelessWidget {
             //   child: Text(l.pageHomeBluetoothDisabledEnable),
             // ),
             FilledButton(
-              onPressed: () => context
-                  .read<HeadphonesConnectionCubit>()
-                  .openBluetoothSettings(),
+              onPressed:
+                  () =>
+                      context
+                          .read<HeadphonesConnectionCubit>()
+                          .openBluetoothSettings(),
               child: Text(l.pageHomeBluetoothDisabledOpenSettings),
             ),
           ],

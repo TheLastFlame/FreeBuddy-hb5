@@ -28,7 +28,7 @@ class HeadphonesConnectionEnsuringOverlay extends StatelessWidget {
   /// Build your widget of desire here - note that headphones may be Mock
   /// (as always 🙄)
   final Widget Function(BuildContext context, BluetoothHeadphones headphones)
-      builder;
+  builder;
 
   const HeadphonesConnectionEnsuringOverlay({super.key, required this.builder});
 
@@ -41,21 +41,22 @@ class HeadphonesConnectionEnsuringOverlay extends StatelessWidget {
     final tt = t.textTheme;
     final l = AppLocalizations.of(context)!;
     return BlocBuilder<HeadphonesConnectionCubit, HeadphonesConnectionState>(
-      builder: (context, state) => switch (state) {
-        HeadphonesNoPermission() => _padded(const NoPermissionInfoWidget()),
-        HeadphonesNotPaired() => _padded(const NotPairedInfoWidget()),
-        HeadphonesBluetoothDisabled() =>
-          _padded(const BluetoothDisabledInfoWidget()),
-        // We know that we *have* the headphones, but not necessary connected
-        HeadphonesDisconnected() ||
-        HeadphonesConnecting() ||
-        HeadphonesConnectedClosed() ||
-        HeadphonesConnectedOpen() =>
-          Disabled(
-            disabled: state is! HeadphonesConnectedOpen,
-            coveringWidget: switch (state) {
-              HeadphonesDisconnected() => const DisconnectedInfoWidget(),
-              HeadphonesConnecting() => Column(
+      builder:
+          (context, state) => switch (state) {
+            HeadphonesNoPermission() => _padded(const NoPermissionInfoWidget()),
+            HeadphonesNotPaired() => _padded(const NotPairedInfoWidget()),
+            HeadphonesBluetoothDisabled() => _padded(
+              const BluetoothDisabledInfoWidget(),
+            ),
+            // We know that we *have* the headphones, but not necessary connected
+            HeadphonesDisconnected() ||
+            HeadphonesConnecting() ||
+            HeadphonesConnectedClosed() ||
+            HeadphonesConnectedOpen() => Disabled(
+              disabled: state is! HeadphonesConnectedOpen,
+              coveringWidget: switch (state) {
+                HeadphonesDisconnected() => const DisconnectedInfoWidget(),
+                HeadphonesConnecting() => Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(l.pageHomeConnecting, style: tt.displaySmall),
@@ -63,26 +64,22 @@ class HeadphonesConnectionEnsuringOverlay extends StatelessWidget {
                     const CircularProgressIndicator(),
                   ],
                 ),
-              HeadphonesConnectedClosed() => const ConnectedClosedWidget(),
-              // Disabled() widget has a non-0ms transition so we need to swap
-              // the overlay even when it's connected
-              HeadphonesConnectedOpen() => const SizedBox(),
-              _ => Text(l.pageHomeUnknown),
-            },
-            child: builder(
-              context,
-              switch (state) {
+                HeadphonesConnectedClosed() => const ConnectedClosedWidget(),
+                // Disabled() widget has a non-0ms transition so we need to swap
+                // the overlay even when it's connected
+                HeadphonesConnectedOpen() => const SizedBox(),
+                _ => Text(l.pageHomeUnknown),
+              },
+              child: builder(context, switch (state) {
                 HeadphonesConnectedOpen(headphones: final hp) => hp,
                 HeadphonesDisconnected(placeholder: final ph) ||
                 HeadphonesConnecting(placeholder: final ph) ||
-                HeadphonesConnectedClosed(placeholder: final ph) =>
-                  ph,
-                _ => throw 'impossible :O'
-              },
+                HeadphonesConnectedClosed(placeholder: final ph) => ph,
+                _ => throw 'impossible :O',
+              }),
             ),
-          ),
-        _ => Text(l.pageHomeUnknown),
-      },
+            _ => Text(l.pageHomeUnknown),
+          },
     );
   }
 }

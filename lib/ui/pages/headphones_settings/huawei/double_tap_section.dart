@@ -18,8 +18,9 @@ class DoubleTapSection extends StatelessWidget {
     final tt = t.textTheme;
     final l = AppLocalizations.of(context)!;
     return StreamBuilder(
-      stream: headphones.settings
-          .map((s) => (l: s.doubleTapLeft, r: s.doubleTapRight)),
+      stream: headphones.settings.map(
+        (s) => (l: s.doubleTapLeft, r: s.doubleTapRight),
+      ),
       initialData: (l: null, r: null),
       builder: (context, snap) {
         final dt = snap.data!;
@@ -52,11 +53,12 @@ class DoubleTapSection extends StatelessWidget {
                           style: tt.titleMedium,
                         ),
                         value: dt.l,
-                        onChanged: enabled
-                            ? (g) => headphones.setSettings(
+                        onChanged:
+                            enabled
+                                ? (g) => headphones.setSettings(
                                   HuaweiFreeBuds4iSettings(doubleTapLeft: g),
                                 )
-                            : null,
+                                : null,
                       ),
                     ),
                     Expanded(
@@ -66,11 +68,12 @@ class DoubleTapSection extends StatelessWidget {
                           style: tt.titleMedium,
                         ),
                         value: dt.r,
-                        onChanged: enabled
-                            ? (g) => headphones.setSettings(
+                        onChanged:
+                            enabled
+                                ? (g) => headphones.setSettings(
                                   HuaweiFreeBuds4iSettings(doubleTapRight: g),
                                 )
-                            : null,
+                                : null,
                       ),
                     ),
                   ],
@@ -89,11 +92,7 @@ class _DoubleTapSetting extends StatelessWidget {
   final DoubleTap? value;
   final void Function(DoubleTap?)? onChanged;
 
-  const _DoubleTapSetting({
-    required this.value,
-    this.onChanged,
-    this.title,
-  });
+  const _DoubleTapSetting({required this.value, this.onChanged, this.title});
 
   @override
   Widget build(BuildContext context) {

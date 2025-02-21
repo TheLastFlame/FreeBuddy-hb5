@@ -13,11 +13,12 @@ class Disabled extends StatelessWidget {
   final bool disabled;
   final Widget? coveringWidget;
 
-  const Disabled(
-      {super.key,
-      required this.child,
-      this.disabled = false,
-      this.coveringWidget});
+  const Disabled({
+    super.key,
+    required this.child,
+    this.disabled = false,
+    this.coveringWidget,
+  });
 
   @override
   Widget build(BuildContext context) {

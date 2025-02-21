@@ -48,16 +48,16 @@ void main() {
     test("ANC mode info", () async {
       const cmds = [
         MbbCommand(43, 42, {
-          1: [4, 1]
+          1: [4, 1],
         }),
         MbbCommand(43, 42, {
-          1: [0, 0]
+          1: [0, 0],
         }),
         MbbCommand(43, 42, {
-          1: [0, 2]
+          1: [0, 2],
         }),
         MbbCommand(43, 42, {
-          1: [0, 2]
+          1: [0, 2],
         }),
       ];
       for (var c in cmds) {
@@ -74,11 +74,13 @@ void main() {
       );
     });
     test("Battery info", () async {
-      inputCtrl.add(const MbbCommand(1, 39, {
-        1: [35],
-        2: [35, 70, 99],
-        3: [1, 0, 1]
-      }).toPayload());
+      inputCtrl.add(
+        const MbbCommand(1, 39, {
+          1: [35],
+          2: [35, 70, 99],
+          3: [1, 0, 1],
+        }).toPayload(),
+      );
       expect(
         fb4i.lrcBattery,
         emits(const LRCBatteryLevels(35, 70, 99, true, false, true)),
@@ -90,9 +92,11 @@ void main() {
         emitsInOrder([AncMode.noiseCancelling, emitsDone]),
       );
       expectLater(fb4i.lrcBattery, emitsDone);
-      inputCtrl.add(const MbbCommand(43, 42, {
-        1: [4, 1]
-      }).toPayload());
+      inputCtrl.add(
+        const MbbCommand(43, 42, {
+          1: [4, 1],
+        }).toPayload(),
+      );
       await inputCtrl.close();
     });
   });

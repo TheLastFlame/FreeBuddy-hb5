@@ -64,15 +64,18 @@ class _MyAppWrapperState extends State<MyAppWrapper>
   @override
   Widget build(BuildContext context) {
     return Provider<AppSettings>(
-      create: (context) =>
-          SharedPreferencesAppSettings(StreamingSharedPreferences.instance),
+      create:
+          (context) =>
+              SharedPreferencesAppSettings(StreamingSharedPreferences.instance),
       child: MultiBlocProvider(
         providers: [BlocProvider.value(value: _btBlock)],
         // don't know if this is good place to put this, but seems right
         // maybe convert this to multi listener with advanced "listenWhen" logic
         // this would make it a nice single place to know what launches when 🤔
-        child:
-            BlocListener<HeadphonesConnectionCubit, HeadphonesConnectionState>(
+        child: BlocListener<
+          HeadphonesConnectionCubit,
+          HeadphonesConnectionState
+        >(
           listener: batteryHomeWidgetHearBloc,
           // Should this be *here* or somewhere special? Idk, okay for now 🤷
           listenWhen: (p, c) => !kIsWeb && Platform.isAndroid,
@@ -104,23 +107,26 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DynamicColorBuilder(
-      builder: (lightDynamic, darkDynamic) => MaterialApp(
-        onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
-        theme: lightTheme(lightDynamic),
-        darkTheme: darkTheme(darkDynamic),
-        themeMode: ThemeMode.system,
-        routes: {
-          '/': (context) => const HomePage(),
-          '/headphones_settings': (context) => const HeadphonesSettingsPage(),
-          '/introduction': (context) => const FreebuddyIntroduction(),
-          '/settings': (context) => const SettingsPage(),
-          '/settings/about': (context) => const AboutPage(),
-          '/settings/about/licenses': (context) => const LicensePage(),
-        },
-        initialRoute: '/',
-      ),
+      builder:
+          (lightDynamic, darkDynamic) => MaterialApp(
+            onGenerateTitle:
+                (context) => AppLocalizations.of(context)!.appTitle,
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            theme: lightTheme(lightDynamic),
+            darkTheme: darkTheme(darkDynamic),
+            themeMode: ThemeMode.system,
+            routes: {
+              '/': (context) => const HomePage(),
+              '/headphones_settings':
+                  (context) => const HeadphonesSettingsPage(),
+              '/introduction': (context) => const FreebuddyIntroduction(),
+              '/settings': (context) => const SettingsPage(),
+              '/settings/about': (context) => const AboutPage(),
+              '/settings/about/licenses': (context) => const LicensePage(),
+            },
+            initialRoute: '/',
+          ),
     );
   }
 }

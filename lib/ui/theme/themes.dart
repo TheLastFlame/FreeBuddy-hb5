@@ -9,23 +9,13 @@ ThemeData _customize(ThemeData theme) {
   return theme.copyWith(
     textTheme: tt.copyWith(
       // Display
-      displaySmall: tt.displaySmall!.copyWith(
-        fontSize: 24,
-      ),
-      displayMedium: tt.displayMedium!.copyWith(
-        color: tt.bodyMedium!.color,
-      ),
+      displaySmall: tt.displaySmall!.copyWith(fontSize: 24),
+      displayMedium: tt.displayMedium!.copyWith(color: tt.bodyMedium!.color),
       // Body
-      bodyMedium: tt.bodyMedium!.copyWith(
-        fontSize: 15.0,
-      ),
-      bodyLarge: tt.bodyLarge!.copyWith(
-        fontSize: 17.0,
-      ),
+      bodyMedium: tt.bodyMedium!.copyWith(fontSize: 15.0),
+      bodyLarge: tt.bodyLarge!.copyWith(fontSize: 17.0),
       // Headlines
-      headlineSmall: tt.headlineSmall!.copyWith(
-        fontSize: 20.0,
-      ),
+      headlineSmall: tt.headlineSmall!.copyWith(fontSize: 20.0),
       headlineMedium: tt.headlineMedium!.copyWith(
         color: tt.bodyMedium!.color,
         fontSize: 28.0,

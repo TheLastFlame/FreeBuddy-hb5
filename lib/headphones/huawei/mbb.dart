@@ -70,7 +70,8 @@ class MbbCommand {
       serviceId == other.serviceId && commandId == other.commandId;
 
   @override
-  String toString() => 'MbbCommand(serviceId: $serviceId, '
+  String toString() =>
+      'MbbCommand(serviceId: $serviceId, '
       'commandId: $commandId, dataArgs: $args)';
 
   @override
@@ -117,7 +118,8 @@ class MbbCommand {
     if (smartDivide) {
       while (payload.length >= 8) {
         divided.add(
-            payload.sublist(0, MbbUtils.getLengthFromLengthByte(payload[2])));
+          payload.sublist(0, MbbUtils.getLengthFromLengthByte(payload[2])),
+        );
         payload = payload.sublist(MbbUtils.getLengthFromLengthByte(payload[2]));
       }
     } else {

@@ -6,8 +6,4 @@ abstract class Anc {
   Future<void> setAncMode(AncMode mode);
 }
 
-enum AncMode {
-  noiseCancelling,
-  off,
-  transparency,
-}
+enum AncMode { noiseCancelling, off, transparency }

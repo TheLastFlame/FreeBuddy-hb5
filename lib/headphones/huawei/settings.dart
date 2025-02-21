@@ -25,15 +25,14 @@ class HuaweiFreeBuds4iSettings {
     Hold? holdBoth,
     Set<AncMode>? holdBothToggledAncModes,
     bool? autoPause,
-  }) =>
-      HuaweiFreeBuds4iSettings(
-        doubleTapLeft: doubleTapLeft ?? this.doubleTapLeft,
-        doubleTapRight: doubleTapRight ?? this.doubleTapRight,
-        holdBoth: holdBoth ?? this.holdBoth,
-        holdBothToggledAncModes:
-            holdBothToggledAncModes ?? this.holdBothToggledAncModes,
-        autoPause: autoPause ?? this.autoPause,
-      );
+  }) => HuaweiFreeBuds4iSettings(
+    doubleTapLeft: doubleTapLeft ?? this.doubleTapLeft,
+    doubleTapRight: doubleTapRight ?? this.doubleTapRight,
+    holdBoth: holdBoth ?? this.holdBoth,
+    holdBothToggledAncModes:
+        holdBothToggledAncModes ?? this.holdBothToggledAncModes,
+    autoPause: autoPause ?? this.autoPause,
+  );
 }
 
 class HuaweiFreeBuds3iSettings {
@@ -65,30 +64,20 @@ class HuaweiFreeBuds3iSettings {
     Hold? holdBoth,
     Set<AncMode>? holdBothToggledAncModes,
     // bool? autoPause,
-  }) =>
-      HuaweiFreeBuds3iSettings(
-        doubleTapLeft: doubleTapLeft ?? this.doubleTapLeft,
-        doubleTapRight: doubleTapRight ?? this.doubleTapRight,
-        holdBoth: holdBoth ?? this.holdBoth,
-        holdBothToggledAncModes:
-            holdBothToggledAncModes ?? this.holdBothToggledAncModes,
-        // autoPause: autoPause ?? this.autoPause,
-      );
+  }) => HuaweiFreeBuds3iSettings(
+    doubleTapLeft: doubleTapLeft ?? this.doubleTapLeft,
+    doubleTapRight: doubleTapRight ?? this.doubleTapRight,
+    holdBoth: holdBoth ?? this.holdBoth,
+    holdBothToggledAncModes:
+        holdBothToggledAncModes ?? this.holdBothToggledAncModes,
+    // autoPause: autoPause ?? this.autoPause,
+  );
 }
 
 // i don't have idea how to public/privatise those and how to name them
 // let's assume that any screen/logic that uses them at all is already
 // model-specific so generic names are okay
 
-enum DoubleTap {
-  nothing,
-  voiceAssistant,
-  playPause,
-  next,
-  previous;
-}
+enum DoubleTap { nothing, voiceAssistant, playPause, next, previous }
 
-enum Hold {
-  nothing,
-  cycleAnc;
-}
+enum Hold { nothing, cycleAnc }

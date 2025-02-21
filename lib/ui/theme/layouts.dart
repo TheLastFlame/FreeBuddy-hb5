@@ -15,13 +15,14 @@ enum WindowSizeClass {
   medium,
   expanded;
 
-  static WindowSizeClass of(BuildContext context) =>
-      switch (MediaQuery.of(context).size.width) {
-        < 600 => WindowSizeClass.compact,
-        >= 600 && < 840 => WindowSizeClass.medium,
-        >= 840 => WindowSizeClass.expanded,
-        // 🤷
-        _ => WindowSizeClass.compact,
-      };
+  static WindowSizeClass of(BuildContext context) => switch (MediaQuery.of(
+    context,
+  ).size.width) {
+    < 600 => WindowSizeClass.compact,
+    >= 600 && < 840 => WindowSizeClass.medium,
+    >= 840 => WindowSizeClass.expanded,
+    // 🤷
+    _ => WindowSizeClass.compact,
+  };
   // TODO: @override compareTo
 }

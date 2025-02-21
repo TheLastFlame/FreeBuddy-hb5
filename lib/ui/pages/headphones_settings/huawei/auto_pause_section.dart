@@ -21,9 +21,10 @@ class AutoPauseSection extends StatelessWidget {
           title: Text(l.autoPause),
           subtitle: Text(l.autoPauseDesc),
           value: snap.data ?? false,
-          onChanged: (newVal) => headphones.setSettings(
-            HuaweiFreeBuds4iSettings(autoPause: newVal),
-          ),
+          onChanged:
+              (newVal) => headphones.setSettings(
+                HuaweiFreeBuds4iSettings(autoPause: newVal),
+              ),
         );
       },
     );

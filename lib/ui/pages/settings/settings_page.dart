@@ -14,13 +14,13 @@ class SettingsPage extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           children: [
             FilledButton(
-              onPressed: () =>
-                  Navigator.of(context).pushNamed('/settings/about'),
+              onPressed:
+                  () => Navigator.of(context).pushNamed('/settings/about'),
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Text(l.pageAboutTitle),
               ),
-            )
+            ),
           ],
         ),
       ),

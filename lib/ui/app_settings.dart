@@ -35,17 +35,26 @@ class SharedPreferencesAppSettings implements AppSettings {
 
   final Future<StreamingSharedPreferences> preferences;
 
-  Future<Preference<bool>> get _seenIntroduction =>
-      preferences.then((p) => p.getBool(_Prefs.seenIntroduction.key,
-          defaultValue: _Prefs.seenIntroduction.defaultValue));
+  Future<Preference<bool>> get _seenIntroduction => preferences.then(
+    (p) => p.getBool(
+      _Prefs.seenIntroduction.key,
+      defaultValue: _Prefs.seenIntroduction.defaultValue,
+    ),
+  );
 
-  Future<Preference<bool>> get _sleepMode =>
-      preferences.then((p) => p.getBool(_Prefs.sleepMode.key,
-          defaultValue: _Prefs.sleepMode.defaultValue));
+  Future<Preference<bool>> get _sleepMode => preferences.then(
+    (p) => p.getBool(
+      _Prefs.sleepMode.key,
+      defaultValue: _Prefs.sleepMode.defaultValue,
+    ),
+  );
 
-  Future<Preference<String>> get _sleepModePreviousSettings =>
-      preferences.then((p) => p.getString(_Prefs.sleepModePreviousSettings.key,
-          defaultValue: _Prefs.sleepModePreviousSettings.defaultValue));
+  Future<Preference<String>> get _sleepModePreviousSettings => preferences.then(
+    (p) => p.getString(
+      _Prefs.sleepModePreviousSettings.key,
+      defaultValue: _Prefs.sleepModePreviousSettings.defaultValue,
+    ),
+  );
 
   @override
   Stream<bool> get seenIntroduction => LazyStream(() => _seenIntroduction);

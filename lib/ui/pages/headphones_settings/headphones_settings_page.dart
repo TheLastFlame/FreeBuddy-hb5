@@ -18,8 +18,9 @@ class HeadphonesSettingsPage extends StatelessWidget {
       appBar: AppBar(title: Text(l.pageHeadphonesSettingsTitle)),
       body: Center(
         child: HeadphonesConnectionEnsuringOverlay(
-          builder: (_, h) =>
-              ListView(children: widgetsForModel(h as HeadphonesSettings)),
+          builder:
+              (_, h) =>
+                  ListView(children: widgetsForModel(h as HeadphonesSettings)),
         ),
       ),
     );

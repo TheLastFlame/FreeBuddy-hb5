@@ -23,28 +23,32 @@ class AncCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const ConstrainedSpacer(
-                    constraints: BoxConstraints(maxWidth: 32)),
+                  constraints: BoxConstraints(maxWidth: 32),
+                ),
                 _AncButton(
                   icon: Symbols.noise_control_on,
                   isSelected: mode == AncMode.noiseCancelling,
                   onPressed: () => anc.setAncMode(AncMode.noiseCancelling),
                 ),
                 const ConstrainedSpacer(
-                    constraints: BoxConstraints(maxWidth: 32)),
+                  constraints: BoxConstraints(maxWidth: 32),
+                ),
                 _AncButton(
                   icon: Symbols.noise_control_off,
                   isSelected: mode == AncMode.off,
                   onPressed: () => anc.setAncMode(AncMode.off),
                 ),
                 const ConstrainedSpacer(
-                    constraints: BoxConstraints(maxWidth: 32)),
+                  constraints: BoxConstraints(maxWidth: 32),
+                ),
                 _AncButton(
                   icon: Symbols.noise_aware,
                   isSelected: mode == AncMode.transparency,
                   onPressed: () => anc.setAncMode(AncMode.transparency),
                 ),
                 const ConstrainedSpacer(
-                    constraints: BoxConstraints(maxWidth: 32)),
+                  constraints: BoxConstraints(maxWidth: 32),
+                ),
               ],
             ),
           ),
@@ -72,11 +76,7 @@ class _AncButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final child = Padding(
       padding: const EdgeInsets.all(4),
-      child: Icon(
-        icon,
-        weight: isSelected ? 600 : 400,
-        size: 42,
-      ),
+      child: Icon(icon, weight: isSelected ? 600 : 400, size: 42),
     );
     return isSelected
         ? FilledButton(onPressed: onPressed, child: child)

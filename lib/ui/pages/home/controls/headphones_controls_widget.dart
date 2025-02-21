@@ -36,71 +36,76 @@ class HeadphonesControlsWidget extends StatelessWidget {
     //       features 🤷
     return Padding(
       padding: const EdgeInsets.all(12.0),
-      child: WindowSizeClass.of(context) == WindowSizeClass.compact
-          ? Column(
-              children: [
-                StreamBuilder(
-                  stream: headphones.bluetoothAlias,
-                  builder: (_, snap) => Text(
-                    snap.data ?? headphones.bluetoothName,
-                    style: tt.headlineMedium,
-                  ),
-                ),
-                if (headphones is HeadphonesModelInfo)
-                  HeadphonesImage(headphones as HeadphonesModelInfo)
-                else
-                  // TODO: This is ugly. Very
-                  const Expanded(child: Icon(Icons.headphones, size: 64)),
-                if (headphones is HeadphonesSettings)
-                  const Align(
-                    alignment: Alignment.centerRight,
-                    child: _HeadphonesSettingsButton(),
-                  ),
-                if (headphones is LRCBattery)
-                  BatteryCard(headphones as LRCBattery),
-                if (headphones is Anc) AncCard(headphones as Anc),
-              ],
-            )
-          : Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Expanded(
-                  child: Column(
-                    children: [
-                      StreamBuilder(
-                        stream: headphones.bluetoothAlias,
-                        builder: (_, snap) => Text(
+      child:
+          WindowSizeClass.of(context) == WindowSizeClass.compact
+              ? Column(
+                children: [
+                  StreamBuilder(
+                    stream: headphones.bluetoothAlias,
+                    builder:
+                        (_, snap) => Text(
                           snap.data ?? headphones.bluetoothName,
                           style: tt.headlineMedium,
                         ),
-                      ),
-                      if (headphones is HeadphonesModelInfo)
-                        HeadphonesImage(headphones as HeadphonesModelInfo)
-                      else
-                        // TODO: This is ugly. Very
-                        const Expanded(child: Icon(Icons.headphones, size: 64)),
-                    ],
                   ),
-                ),
-                Expanded(
-                  child: SingleChildScrollView(
+                  if (headphones is HeadphonesModelInfo)
+                    HeadphonesImage(headphones as HeadphonesModelInfo)
+                  else
+                    // TODO: This is ugly. Very
+                    const Expanded(child: Icon(Icons.headphones, size: 64)),
+                  if (headphones is HeadphonesSettings)
+                    const Align(
+                      alignment: Alignment.centerRight,
+                      child: _HeadphonesSettingsButton(),
+                    ),
+                  if (headphones is LRCBattery)
+                    BatteryCard(headphones as LRCBattery),
+                  if (headphones is Anc) AncCard(headphones as Anc),
+                ],
+              )
+              : Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Expanded(
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        if (headphones is HeadphonesSettings)
-                          const Align(
-                            alignment: Alignment.centerRight,
-                            child: _HeadphonesSettingsButton(),
+                        StreamBuilder(
+                          stream: headphones.bluetoothAlias,
+                          builder:
+                              (_, snap) => Text(
+                                snap.data ?? headphones.bluetoothName,
+                                style: tt.headlineMedium,
+                              ),
+                        ),
+                        if (headphones is HeadphonesModelInfo)
+                          HeadphonesImage(headphones as HeadphonesModelInfo)
+                        else
+                          // TODO: This is ugly. Very
+                          const Expanded(
+                            child: Icon(Icons.headphones, size: 64),
                           ),
-                        if (headphones is LRCBattery)
-                          BatteryCard(headphones as LRCBattery),
-                        if (headphones is Anc) AncCard(headphones as Anc),
                       ],
                     ),
                   ),
-                ),
-              ],
-            ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          if (headphones is HeadphonesSettings)
+                            const Align(
+                              alignment: Alignment.centerRight,
+                              child: _HeadphonesSettingsButton(),
+                            ),
+                          if (headphones is LRCBattery)
+                            BatteryCard(headphones as LRCBattery),
+                          if (headphones is Anc) AncCard(headphones as Anc),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
     );
   }
 }

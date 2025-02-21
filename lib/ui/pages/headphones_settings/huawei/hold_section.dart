@@ -17,8 +17,9 @@ class HoldSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
     return StreamBuilder(
-      stream: headphones.settings
-          .map((s) => (holdBoth: s.holdBoth, anc: s.holdBothToggledAncModes)),
+      stream: headphones.settings.map(
+        (s) => (holdBoth: s.holdBoth, anc: s.holdBothToggledAncModes),
+      ),
       initialData: (holdBoth: null, anc: null),
       builder: (context, snap) {
         final gs = snap.data!;
@@ -29,22 +30,24 @@ class HoldSection extends StatelessWidget {
               title: Text(l.pageHeadphonesSettingsHold),
               subtitle: Text(l.pageHeadphonesSettingsHoldDesc),
               value: enabled,
-              onChanged: (newVal) => headphones.setSettings(
-                HuaweiFreeBuds4iSettings(
-                  holdBoth: newVal ? Hold.cycleAnc : Hold.nothing,
-                ),
-              ),
+              onChanged:
+                  (newVal) => headphones.setSettings(
+                    HuaweiFreeBuds4iSettings(
+                      holdBoth: newVal ? Hold.cycleAnc : Hold.nothing,
+                    ),
+                  ),
             ),
             Disabled(
               disabled: !enabled,
               child: _HoldSettingsCard(
                 enabledModes: MapEntry(gs.holdBoth, gs.anc),
-                onChanged: (m) => headphones.setSettings(
-                  HuaweiFreeBuds4iSettings(
-                    holdBoth: m.key,
-                    holdBothToggledAncModes: m.value,
-                  ),
-                ),
+                onChanged:
+                    (m) => headphones.setSettings(
+                      HuaweiFreeBuds4iSettings(
+                        holdBoth: m.key,
+                        holdBothToggledAncModes: m.value,
+                      ),
+                    ),
               ),
             ),
           ],
@@ -63,11 +66,12 @@ class _HoldSettingsCard extends StatelessWidget {
   bool checkboxChecked(AncMode mode) =>
       enabledModes.value?.contains(mode) ?? false;
 
-  bool checkboxEnabled(bool enabled) => (enabledModes.key == Hold.cycleAnc &&
-      onChanged != null &&
-      enabledModes.value != null &&
-      // either all modes are enabled, or this is the disabled one
-      (enabledModes.value!.length > 2 || !enabled));
+  bool checkboxEnabled(bool enabled) =>
+      (enabledModes.key == Hold.cycleAnc &&
+          onChanged != null &&
+          enabledModes.value != null &&
+          // either all modes are enabled, or this is the disabled one
+          (enabledModes.value!.length > 2 || !enabled));
 
   Widget modeCheckbox(String title, String desc, AncMode mode) {
     final checked = checkboxChecked(mode);
@@ -75,18 +79,19 @@ class _HoldSettingsCard extends StatelessWidget {
       title: Text(title),
       subtitle: Text(desc),
       value: checked,
-      onChanged: checkboxEnabled(checked)
-          ? (val) {
-              onChanged!(
-                MapEntry(
-                  enabledModes.key,
-                  val
-                      ? ({...enabledModes.value!, mode})
-                      : ({...enabledModes.value!}..remove(mode)),
-                ),
-              );
-            }
-          : null,
+      onChanged:
+          checkboxEnabled(checked)
+              ? (val) {
+                onChanged!(
+                  MapEntry(
+                    enabledModes.key,
+                    val
+                        ? ({...enabledModes.value!, mode})
+                        : ({...enabledModes.value!}..remove(mode)),
+                  ),
+                );
+              }
+              : null,
     );
   }
 
@@ -103,11 +108,7 @@ class _HoldSettingsCard extends StatelessWidget {
               l.ancNoiseCancelDesc,
               AncMode.noiseCancelling,
             ),
-            modeCheckbox(
-              l.ancOff,
-              l.ancOffDesc,
-              AncMode.off,
-            ),
+            modeCheckbox(l.ancOff, l.ancOffDesc, AncMode.off),
             modeCheckbox(
               l.ancAwareness,
               l.ancAwarenessDesc,

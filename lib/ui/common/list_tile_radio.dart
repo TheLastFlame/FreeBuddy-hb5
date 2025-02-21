@@ -24,11 +24,12 @@ class ListTileRadio<T> extends StatelessWidget {
       title: title,
       subtitle: subtitle,
       dense: dense,
-      onTap: onChanged != null
-          ? () {
-              onChanged!(value);
-            }
-          : null,
+      onTap:
+          onChanged != null
+              ? () {
+                onChanged!(value);
+              }
+              : null,
       trailing: IgnorePointer(
         child: Radio<T>(
           value: value,

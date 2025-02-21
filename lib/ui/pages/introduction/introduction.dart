@@ -12,9 +12,13 @@ class FreebuddyIntroduction extends StatelessWidget {
     return TextSpan(
       text: text,
       style: const TextStyle(color: Colors.blue),
-      recognizer: TapGestureRecognizer()
-        ..onTap = () =>
-            launchUrlString(url ?? text, mode: LaunchMode.externalApplication),
+      recognizer:
+          TapGestureRecognizer()
+            ..onTap =
+                () => launchUrlString(
+                  url ?? text,
+                  mode: LaunchMode.externalApplication,
+                ),
     );
   }
 
@@ -34,8 +38,11 @@ class FreebuddyIntroduction extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Spacer(flex: 6),
-              Text(l.pageIntroTitle,
-                  style: tt.displayMedium, textAlign: TextAlign.center),
+              Text(
+                l.pageIntroTitle,
+                style: tt.displayMedium,
+                textAlign: TextAlign.center,
+              ),
               const Spacer(flex: 12),
               // Rich text with introduction and link to privacy policy
               RichText(

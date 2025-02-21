@@ -30,8 +30,10 @@ Future<bool> routineUpdateCallback() async {
     // i think this function is still "dependency injection" safe
     // ...but it's not wise to keep remembering what is and what isn't, is it?
     if (await HeadphonesConnectionCubit.cubitAlreadyRunningSomewhere()) {
-      logg.d("Not updating stuff from ROUTINE_UPDATE "
-          "because cubit is already running");
+      logg.d(
+        "Not updating stuff from ROUTINE_UPDATE "
+        "because cubit is already running",
+      );
       return true;
     }
     cubit = di.getHeadphonesCubit();
@@ -40,13 +42,17 @@ Future<bool> routineUpdateCallback() async {
         .firstWhere((e) => e is! HeadphonesConnecting)
         .timeout(commonTimeout);
     if (headphones is! HeadphonesConnectedOpen) {
-      logg.d("Not updating stuff from ROUTINE_UPDATE because: "
-          "${headphones.toString()}");
+      logg.d(
+        "Not updating stuff from ROUTINE_UPDATE because: "
+        "${headphones.toString()}",
+      );
       return true;
     }
     if (headphones.headphones is! LRCBattery) {
-      logg.d("Not updating stuff from ROUTINE_UPDATE because connected "
-          "headphones don't support LRCBattery");
+      logg.d(
+        "Not updating stuff from ROUTINE_UPDATE because connected "
+        "headphones don't support LRCBattery",
+      );
       return true;
     }
     final batteryData = await (headphones.headphones as LRCBattery)
@@ -67,8 +73,10 @@ Future<bool> routineUpdateCallback() async {
 void callbackDispatcher() {
   // this $task is a name, not id?? wtf??
   Workmanager().executeTask((task, inputData) {
-    logg.d("Running periodic task $task"
-        "${inputData != null ? " - input data: $inputData" : ""}");
+    logg.d(
+      "Running periodic task $task"
+      "${inputData != null ? " - input data: $inputData" : ""}",
+    );
     try {
       return switch (task) {
         taskIdRoutineUpdate => routineUpdateCallback().timeout(commonTimeout),

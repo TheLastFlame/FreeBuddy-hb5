@@ -51,7 +51,8 @@ class HeadphonesConnectionCubit extends Cubit<HeadphonesConnectionState> {
     // do this one time already bc stream will start only after first period
     noPort() =>
         IsolateNameServer.lookupPortByName(
-            HeadphonesConnectionCubit.pingReceivePortName) ==
+          HeadphonesConnectionCubit.pingReceivePortName,
+        ) ==
         null;
     if (noPort()) return true;
     return await Stream.periodic(
@@ -65,10 +66,12 @@ class HeadphonesConnectionCubit extends Cubit<HeadphonesConnectionState> {
   /// Reason this exists vs just checking port is to make sure cubit is
   /// **running**, and not just... exising hang up somewhere, or forgot
   /// to de-register the port
-  static Future<bool> cubitAlreadyRunningSomewhere(
-      {Duration responseTimeout = const Duration(seconds: 1)}) async {
+  static Future<bool> cubitAlreadyRunningSomewhere({
+    Duration responseTimeout = const Duration(seconds: 1),
+  }) async {
     final ping = IsolateNameServer.lookupPortByName(
-        HeadphonesConnectionCubit.pingReceivePortName);
+      HeadphonesConnectionCubit.pingReceivePortName,
+    );
     if (ping == null) return false;
     final pong = ReceivePort(); // this is not right naming, i know
     ping.send(pong.sendPort);
@@ -81,10 +84,13 @@ class HeadphonesConnectionCubit extends Cubit<HeadphonesConnectionState> {
   // to close it, but we have no way to know)
   static Future<bool> killOtherCubit() async {
     final ping = IsolateNameServer.lookupPortByName(
-        HeadphonesConnectionCubit.pingReceivePortName);
+      HeadphonesConnectionCubit.pingReceivePortName,
+    );
     if (ping == null) {
-      loggI.e("No cubit to kill :( (this probably means you're using "
-          "this function WRONG, or something WEIRD happened)");
+      loggI.e(
+        "No cubit to kill :( (this probably means you're using "
+        "this function WRONG, or something WEIRD happened)",
+      );
       return true;
     }
     ping.send(_killUrself);
@@ -102,8 +108,9 @@ class HeadphonesConnectionCubit extends Cubit<HeadphonesConnectionState> {
 
   Future<void> connect() async {
     if (_connection != null) return;
-    final connected = _watchedKnownDevices.keys
-        .firstWhereOrNull((dev) => dev.isConnected.valueOrNull ?? false);
+    final connected = _watchedKnownDevices.keys.firstWhereOrNull(
+      (dev) => dev.isConnected.valueOrNull ?? false,
+    );
     if (connected != null) {
       _connect(connected, matchModel(connected)!);
     }
@@ -124,9 +131,7 @@ class HeadphonesConnectionCubit extends Cubit<HeadphonesConnectionState> {
           if (i + 1 >= connectTries) rethrow;
         }
       }
-      emit(
-        HeadphonesConnectedOpen(model.builder(_connection!, dev)),
-      );
+      emit(HeadphonesConnectedOpen(model.builder(_connection!, dev)));
       await _connection!.stream.listen((event) {}).asFuture();
       // when device disconnects, future completes and we free the
       // hopefully this happens *before* next stream event with data 🤷
@@ -164,8 +169,9 @@ class HeadphonesConnectionCubit extends Cubit<HeadphonesConnectionState> {
     // "Add all devices that are in knownHp but not in _watched
     for (final hp in knownHeadphones) {
       if (!_watchedKnownDevices.containsKey(hp.device)) {
-        _watchedKnownDevices[hp.device] =
-            hp.device.isConnected.listen((connected) {
+        _watchedKnownDevices[hp.device] = hp.device.isConnected.listen((
+          connected,
+        ) {
           if (connected) {
             if (_connection != null) return; // already connected, skip
             _connect(hp.device, hp.match!);
@@ -187,8 +193,8 @@ class HeadphonesConnectionCubit extends Cubit<HeadphonesConnectionState> {
   }
 
   HeadphonesConnectionCubit({required TheLastBluetooth bluetooth})
-      : _bluetooth = bluetooth,
-        super(const HeadphonesNotPaired()) {
+    : _bluetooth = bluetooth,
+      super(const HeadphonesNotPaired()) {
     final rolex = Stopwatch()..start();
     _initInit().then(
       (_) => loggI.d("_initInit() took ${rolex.elapsedMilliseconds}ms"),
@@ -201,8 +207,10 @@ class HeadphonesConnectionCubit extends Cubit<HeadphonesConnectionState> {
   Future<void> _initInit() async {
     // TODO: Some *tests* for this nightmare...
     if (await cubitAlreadyRunningSomewhere()) {
-      loggI.w("Found already running cubit while init() - "
-          "will wait $killOtherCubitTimeout and then kill it");
+      loggI.w(
+        "Found already running cubit while init() - "
+        "will wait $killOtherCubitTimeout and then kill it",
+      );
       if (await _checkUntilNoPort(killOtherCubitTimeout)) {
         loggI.i("Gone already, no need for war crimes 😇");
       } else {
@@ -226,7 +234,9 @@ class HeadphonesConnectionCubit extends Cubit<HeadphonesConnectionState> {
     // a deep un-fixable-for-now fault of jni :///
     IsolateNameServer.removePortNameMapping(pingReceivePortName);
     IsolateNameServer.registerPortWithName(
-        _pingReceivePort.sendPort, pingReceivePortName);
+      _pingReceivePort.sendPort,
+      pingReceivePortName,
+    );
     _pingReceivePortSS = _pingReceivePort.listen((message) {
       // ping back
       if (message is SendPort) message.send(true);
@@ -243,8 +253,10 @@ class HeadphonesConnectionCubit extends Cubit<HeadphonesConnectionState> {
 
   Future<void> _init() async {
     if (_btEnabledStream != null) {
-      loggI.w("_init() was already done and finished, but got called"
-          "again. Weird.");
+      loggI.w(
+        "_init() was already done and finished, but got called"
+        "again. Weird.",
+      );
       return;
     }
     loggI.d("Starting init...");
@@ -252,8 +264,10 @@ class HeadphonesConnectionCubit extends Cubit<HeadphonesConnectionState> {
     // this would prob mean user went through all permission asking stuff, and
     // _initInit() is stilllll running... 😵‍💫
     if (!_warCrimesFinished) {
-      loggI.w("_init() called but _initInit() not finished 😵‍💫 - "
-          "this isn't good, but we may survive this...");
+      loggI.w(
+        "_init() called but _initInit() not finished 😵‍💫 - "
+        "this isn't good, but we may survive this...",
+      );
       return;
     }
     // it's down here to be sure that we do have device connected so
@@ -273,7 +287,9 @@ class HeadphonesConnectionCubit extends Cubit<HeadphonesConnectionState> {
   Future<bool> enableBluetooth() async => false;
 
   Future<void> openBluetoothSettings() => AppSettings.openAppSettings(
-      type: AppSettingsType.bluetooth, asAnotherTask: true);
+    type: AppSettingsType.bluetooth,
+    asAnotherTask: true,
+  );
 
   Future<void> requestPermission() async {
     await Permission.bluetoothConnect.request();

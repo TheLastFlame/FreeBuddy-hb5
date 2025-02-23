@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:streaming_shared_preferences/streaming_shared_preferences.dart';
 
 import 'di.dart' as di;
+import 'edge2egde.dart';
 import 'gen/i18n/strings.g.dart';
 import 'headphones/cubit/headphones_connection_cubit.dart';
 import 'headphones/cubit/headphones_cubit_objects.dart';
@@ -23,8 +24,11 @@ import 'ui/pages/introduction/introduction.dart';
 import 'ui/pages/settings/settings_page.dart';
 import 'ui/theme/themes.dart';
 
-void main() {
+void main() async {
   final bind = WidgetsFlutterBinding.ensureInitialized();
+
+  //Support edge to edge on Android < 15
+  await settingUpSystemUIOverlay();
 
   LocaleSettings.useDeviceLocale();
 

@@ -141,6 +141,7 @@ class AboutPage extends StatelessWidget {
                   ).pushNamed('/settings/about/licenses'),
               child: Text(context.t.pageAboutOpenSourceLicensesBtn),
             ),
+            SizedBox(height: MediaQuery.viewPaddingOf(context).bottom),
           ],
         ),
       ),

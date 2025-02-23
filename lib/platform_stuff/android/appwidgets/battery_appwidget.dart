@@ -22,6 +22,7 @@ void batteryHomeWidgetHearBloc(
     _headphonesBatteryStreamSub = (headphonesConnectionState.headphones
             as LRCBattery)
         .lrcBattery
+        .distinct()
         .throttleTime(
           const Duration(seconds: 1),
           trailing: true,

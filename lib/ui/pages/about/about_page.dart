@@ -1,7 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+
+import '../../../gen/i18n/strings.g.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
@@ -24,7 +25,6 @@ class AboutPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l = AppLocalizations.of(context)!;
     final t = Theme.of(context);
     final tt = t.textTheme;
 
@@ -45,16 +45,18 @@ class AboutPage extends StatelessWidget {
     );
 
     return Scaffold(
-      appBar: AppBar(title: Text(l.pageAboutTitle)),
+      appBar: AppBar(title: Text(context.t.pageAboutTitle)),
       body: Center(
         child: ListView(
           padding: const EdgeInsets.all(16.0),
           children: [
-            Center(child: Text(l.pageAboutMeHeader, style: tt.headlineLarge)),
+            Center(
+              child: Text(context.t.pageAboutMeHeader, style: tt.headlineLarge),
+            ),
             smallSpace(),
-            Text(l.pageAboutMeBio),
+            Text(context.t.pageAboutMeBio),
             smallSpace(),
-            Text(l.pageAboutMeAnyQuestions),
+            Text(context.t.pageAboutMeAnyQuestions),
             smallSpace(),
             Text.rich(
               TextSpan(
@@ -72,31 +74,41 @@ class AboutPage extends StatelessWidget {
             Text.rich(
               TextSpan(
                 children: [
-                  TextSpan(text: l.pageAboutMeOpenSource),
+                  TextSpan(text: context.t.pageAboutMeOpenSource),
                   newline(),
                   _link("https://github.com/TheLastGimbus/FreeBuddy/"),
                   // TODO: Actually write a blog
                   // newline(),
-                  // TextSpan(text: l.pageAboutMeBlog),
+                  // TextSpan(text: context.t.pageAboutMeBlog),
                   // _link("https://the.lastgimbus.com/blog/"),
                 ],
               ),
             ),
             divider(),
-            Text(l.pageAboutMentionsHeader, style: tt.headlineMedium),
+            Text(context.t.pageAboutMentionsHeader, style: tt.headlineMedium),
             smallSpace(),
-            Text(l.pageAboutMentionsPeopleHeader, style: tt.headlineSmall),
+            Text(
+              context.t.pageAboutMentionsPeopleHeader,
+              style: tt.headlineSmall,
+            ),
             Text.rich(
               TextSpan(
                 children: [
-                  TextSpan(text: " - ${l.pageAboutMentionsPeopleStreet}"),
+                  TextSpan(
+                    text: " - ${context.t.pageAboutMentionsPeopleStreet}",
+                  ),
                   newline(),
-                  TextSpan(text: " - ${l.pageAboutMentionsPeopleHuawei}"),
+                  TextSpan(
+                    text: " - ${context.t.pageAboutMentionsPeopleHuawei}",
+                  ),
                 ],
               ),
             ),
             smallSpace(),
-            Text(l.pageAboutMentionsTechHeader, style: tt.headlineSmall),
+            Text(
+              context.t.pageAboutMentionsTechHeader,
+              style: tt.headlineSmall,
+            ),
             Text.rich(
               TextSpan(
                 children: [
@@ -107,14 +119,17 @@ class AboutPage extends StatelessWidget {
               ),
             ),
             divider(),
-            Text(l.privacyPolicyTitle, style: t.textTheme.headlineSmall),
+            Text(
+              context.t.privacyPolicyTitle,
+              style: t.textTheme.headlineSmall,
+            ),
             smallSpace(),
             Text.rich(
               TextSpan(
                 children: [
-                  TextSpan(text: l.privacyPolicyText),
+                  TextSpan(text: context.t.privacyPolicyText),
                   newline(),
-                  _link(l.privacyPolicyUrl),
+                  _link(context.t.privacyPolicyUrl),
                 ],
               ),
             ),
@@ -124,7 +139,7 @@ class AboutPage extends StatelessWidget {
                   () => Navigator.of(
                     context,
                   ).pushNamed('/settings/about/licenses'),
-              child: Text(l.pageAboutOpenSourceLicensesBtn),
+              child: Text(context.t.pageAboutOpenSourceLicensesBtn),
             ),
           ],
         ),

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../../gen/i18n/strings.g.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final l = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(title: Text(l.settings)),
+      appBar: AppBar(title: Text(context.t.settings)),
       body: Center(
         child: ListView(
           padding: const EdgeInsets.all(16.0),
@@ -18,7 +18,7 @@ class SettingsPage extends StatelessWidget {
                   () => Navigator.of(context).pushNamed('/settings/about'),
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: Text(l.pageAboutTitle),
+                child: Text(context.t.pageAboutTitle),
               ),
             ),
           ],

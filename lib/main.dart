@@ -4,12 +4,13 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
 import 'package:streaming_shared_preferences/streaming_shared_preferences.dart';
 
 import 'di.dart' as di;
+import 'gen/i18n/strings.g.dart';
 import 'headphones/cubit/headphones_connection_cubit.dart';
 import 'headphones/cubit/headphones_cubit_objects.dart';
 import 'platform_stuff/android/appwidgets/battery_appwidget.dart';
@@ -24,6 +25,9 @@ import 'ui/theme/themes.dart';
 
 void main() {
   final bind = WidgetsFlutterBinding.ensureInitialized();
+
+  LocaleSettings.useDeviceLocale();
+
   // This is so that we try to connect to headphones under splash screen
   // This will make it more smooth to the user
   FlutterNativeSplash.preserve(widgetsBinding: bind);
@@ -31,7 +35,7 @@ void main() {
     // this is async, so it won't block runApp
     android_periodic.init();
   }
-  runApp(const MyAppWrapper());
+  runApp(TranslationProvider(child: const MyAppWrapper()));
 }
 
 // Big ass ugly-as-fuck wrapper because:
@@ -109,10 +113,10 @@ class MyApp extends StatelessWidget {
     return DynamicColorBuilder(
       builder:
           (lightDynamic, darkDynamic) => MaterialApp(
-            onGenerateTitle:
-                (context) => AppLocalizations.of(context)!.appTitle,
-            localizationsDelegates: AppLocalizations.localizationsDelegates,
-            supportedLocales: AppLocalizations.supportedLocales,
+            locale: TranslationProvider.of(context).flutterLocale,
+            onGenerateTitle: (context) => context.t.appTitle,
+            localizationsDelegates: GlobalMaterialLocalizations.delegates,
+            supportedLocales: AppLocaleUtils.supportedLocales,
             theme: lightTheme(lightDynamic),
             darkTheme: darkTheme(darkDynamic),
             themeMode: ThemeMode.system,

@@ -1,7 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+
+import '../../../gen/i18n/strings.g.dart';
 
 class FreebuddyIntroduction extends StatelessWidget {
   const FreebuddyIntroduction({super.key});
@@ -26,7 +27,6 @@ class FreebuddyIntroduction extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = Theme.of(context);
     final tt = t.textTheme;
-    final l = AppLocalizations.of(context)!;
 
     newline() => const TextSpan(text: "\n");
 
@@ -39,7 +39,7 @@ class FreebuddyIntroduction extends StatelessWidget {
             children: [
               const Spacer(flex: 6),
               Text(
-                l.pageIntroTitle,
+                context.t.pageIntroTitle,
                 style: tt.displayMedium,
                 textAlign: TextAlign.center,
               ),
@@ -48,14 +48,14 @@ class FreebuddyIntroduction extends StatelessWidget {
               RichText(
                 text: TextSpan(
                   children: [
-                    TextSpan(text: l.pageIntroWhatIsThis),
+                    TextSpan(text: context.t.pageIntroWhatIsThis),
                     newline(),
                     newline(),
-                    TextSpan(text: l.pageIntroSupported),
+                    TextSpan(text: context.t.pageIntroSupported),
                     newline(),
                     newline(),
-                    TextSpan(text: l.pageIntroShortPrivacyPolicy),
-                    _link(l.privacyPolicy, l.privacyPolicyUrl),
+                    TextSpan(text: context.t.pageIntroShortPrivacyPolicy),
+                    _link(context.t.privacyPolicy, context.t.privacyPolicyUrl),
                     WidgetSpan(
                       child: Icon(
                         Icons.open_in_new,
@@ -66,7 +66,7 @@ class FreebuddyIntroduction extends StatelessWidget {
                     ),
                     newline(),
                     newline(),
-                    TextSpan(text: l.pageIntroAnyQuestions),
+                    TextSpan(text: context.t.pageIntroAnyQuestions),
                   ],
                   style: tt.bodyMedium,
                 ),
@@ -77,7 +77,7 @@ class FreebuddyIntroduction extends StatelessWidget {
                   const Spacer(),
                   TextButton(
                     onPressed: () => Navigator.of(context).pop<bool>(true),
-                    child: Text(l.pageIntroQuit),
+                    child: Text(context.t.pageIntroQuit),
                   ),
                 ],
               ),

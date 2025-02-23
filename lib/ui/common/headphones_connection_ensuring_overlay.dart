@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../gen/i18n/strings.g.dart';
 import '../../headphones/cubit/headphones_connection_cubit.dart';
 import '../../headphones/cubit/headphones_cubit_objects.dart';
 import '../../headphones/framework/bluetooth_headphones.dart';
@@ -39,7 +39,6 @@ class HeadphonesConnectionEnsuringOverlay extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = Theme.of(context);
     final tt = t.textTheme;
-    final l = AppLocalizations.of(context)!;
     return BlocBuilder<HeadphonesConnectionCubit, HeadphonesConnectionState>(
       builder:
           (context, state) => switch (state) {
@@ -59,7 +58,7 @@ class HeadphonesConnectionEnsuringOverlay extends StatelessWidget {
                 HeadphonesConnecting() => Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(l.pageHomeConnecting, style: tt.displaySmall),
+                    Text(context.t.pageHomeConnecting, style: tt.displaySmall),
                     const SizedBox(height: 16),
                     const CircularProgressIndicator(),
                   ],
@@ -68,7 +67,7 @@ class HeadphonesConnectionEnsuringOverlay extends StatelessWidget {
                 // Disabled() widget has a non-0ms transition so we need to swap
                 // the overlay even when it's connected
                 HeadphonesConnectedOpen() => const SizedBox(),
-                _ => Text(l.pageHomeUnknown),
+                _ => Text(context.t.pageHomeUnknown),
               },
               child: builder(context, switch (state) {
                 HeadphonesConnectedOpen(headphones: final hp) => hp,
@@ -78,7 +77,7 @@ class HeadphonesConnectionEnsuringOverlay extends StatelessWidget {
                 _ => throw 'impossible :O',
               }),
             ),
-            _ => Text(l.pageHomeUnknown),
+            _ => Text(context.t.pageHomeUnknown),
           },
     );
   }

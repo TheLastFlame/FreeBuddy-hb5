@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 
-// Maybe make a check for platform version, but honestly this is nice
-bool get useMaterial3 => true;
-
 /// This allows us to override both themes
 ThemeData _customize(ThemeData theme) {
   final tt = theme.textTheme;
@@ -25,11 +22,17 @@ ThemeData _customize(ThemeData theme) {
         fontSize: 32.0,
       ),
     ),
+    pageTransitionsTheme: PageTransitionsTheme(
+      builders: {
+        for (var platform in TargetPlatform.values)
+          platform: FadeForwardsPageTransitionsBuilder(),
+      },
+    ),
   );
 }
 
 ThemeData lightTheme(ColorScheme? dynamicColorScheme) {
-  return _customize(ThemeData.light(useMaterial3: useMaterial3)).copyWith(
+  return _customize(ThemeData.light()).copyWith(
     colorScheme: dynamicColorScheme,
     // colorScheme: _light.colorScheme.copyWith(
     // Leaving this so you see how you can customize colors individually
@@ -39,7 +42,7 @@ ThemeData lightTheme(ColorScheme? dynamicColorScheme) {
 }
 
 ThemeData darkTheme(ColorScheme? dynamicColorScheme) {
-  return _customize(ThemeData.dark(useMaterial3: useMaterial3)).copyWith(
+  return _customize(ThemeData.dark()).copyWith(
     colorScheme: dynamicColorScheme,
     // colorScheme: _dark.colorScheme.copyWith(
     //     // Leaving this so you see how you can customize colors individually

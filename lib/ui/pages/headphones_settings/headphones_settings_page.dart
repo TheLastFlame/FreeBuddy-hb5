@@ -33,8 +33,13 @@ class HeadphonesSettingsPage extends StatelessWidget {
 List<Widget> widgetsForModel(HeadphonesSettings settings) {
   if (settings is HeadphonesSettings<HuaweiFreeBuds5Settings>) {
     return [
-      // AutoPauseSection(settings),
-      // const Divider(indent: 16, endIndent: 16),
+      SizedBox(height: 16),
+      AutoPauseSection(
+        autoPauseStream: settings.settings.map((s) => s.autoPause),
+        onAutoPauseChanged:
+            (v) => settings.setSettings(HuaweiFreeBuds5Settings(autoPause: v)),
+      ),
+      const Divider(indent: 16, endIndent: 16),
       // DoubleTapSection(settings),
       // const Divider(indent: 16, endIndent: 16),
       // HoldSection(settings),
@@ -44,7 +49,11 @@ List<Widget> widgetsForModel(HeadphonesSettings settings) {
 
   if (settings is HeadphonesSettings<HuaweiFreeBuds4iSettings>) {
     return [
-      AutoPauseSection(settings),
+      AutoPauseSection(
+        autoPauseStream: settings.settings.map((s) => s.autoPause),
+        onAutoPauseChanged:
+            (v) => settings.setSettings(HuaweiFreeBuds4iSettings(autoPause: v)),
+      ),
       const Divider(indent: 16, endIndent: 16),
       DoubleTapSection(settings),
       const Divider(indent: 16, endIndent: 16),

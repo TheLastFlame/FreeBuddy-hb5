@@ -8,7 +8,9 @@ import '../../../../headphones/framework/headphones_settings.dart';
 import '../../../../headphones/framework/lrc_battery.dart';
 import '../../../theme/layouts.dart';
 import 'anc_card.dart';
+import 'anc_switcher.dart';
 import 'battery_card.dart';
+import 'battery_circles.dart';
 import 'headphones_image.dart';
 
 /// Main whole-screen widget with controls for headphones
@@ -50,19 +52,22 @@ class HeadphonesControlsWidget extends StatelessWidget {
                           style: tt.headlineMedium,
                         ),
                   ),
-                  if (headphones is HeadphonesModelInfo)
-                    HeadphonesImage(headphones as HeadphonesModelInfo)
-                  else
-                    // TODO: This is ugly. Very
-                    const Expanded(child: Icon(Icons.headphones, size: 64)),
+                  SizedBox(height: 16),
+                  if (headphones is LRCBattery)
+                    BatteryCircles(headphones as LRCBattery),
+
+                  Container(
+                    height: 200,
+                    width: double.infinity,
+                    decoration: BoxDecoration(),
+                  ),
+
+                  if (headphones is Anc) AncSwitcher(headphones as Anc),
                   if (headphones is HeadphonesSettings)
                     const Align(
                       alignment: Alignment.centerRight,
                       child: _HeadphonesSettingsButton(),
                     ),
-                  if (headphones is LRCBattery)
-                    BatteryCard(headphones as LRCBattery),
-                  if (headphones is Anc) AncCard(headphones as Anc),
                 ],
               )
               : Row(

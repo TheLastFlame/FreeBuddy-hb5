@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:material_color_utilities/material_color_utilities.dart';
 import 'package:material_symbols_icons/symbols.dart';
 
 import '../../../../gen/freebuddy_icons.dart';
+import '../../../../gen/i18n/strings.g.dart';
 import '../../../../headphones/framework/lrc_battery.dart';
 
 /// Android12-Google-Battery-Widget-style battery card
@@ -19,7 +19,6 @@ class BatteryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = Theme.of(context);
     final tt = t.textTheme;
-    final l = AppLocalizations.of(context)!;
 
     // Don't feel like exporting this anywhere 🤷
     batteryBox(IconData icon, String text, int? level, bool? charging) =>
@@ -68,21 +67,21 @@ class BatteryCard extends StatelessWidget {
                 children: [
                   batteryBox(
                     FreebuddyIcons.leftEarbud,
-                    l.leftBudShort,
+                    context.t.leftBudShort,
                     b?.levelLeft,
                     b?.chargingLeft,
                   ),
                   const SizedBox(height: 2),
                   batteryBox(
                     FreebuddyIcons.rightEarbud,
-                    l.rightBudShort,
+                    context.t.rightBudShort,
                     b?.levelRight,
                     b?.chargingRight,
                   ),
                   const SizedBox(height: 2),
                   batteryBox(
                     FreebuddyIcons.earbudsCase,
-                    l.caseShort,
+                    context.t.caseShort,
                     b?.levelCase,
                     b?.chargingCase,
                   ),

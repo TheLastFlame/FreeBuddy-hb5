@@ -64,6 +64,8 @@ dependencies:
   ## This is low-level, but I *do* use it to mix colors here and there
   material_color_utilities: ^0.11.0
   material_symbols_icons: ^4.2801.0
+  slang: ^4.4.1
+  slang_flutter: ^4.4.0
 
 dependency_overrides:
   ## flutter_test, as always...
@@ -109,8 +111,6 @@ flutter_native_splash:
 
 # The following section is specific to Flutter packages.
 flutter:
-  # Generate stuff (for i18n etc)
-  generate: true
   uses-material-design: true
 
   # Proudly state authors here:

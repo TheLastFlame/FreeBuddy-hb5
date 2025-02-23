@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../../gen/i18n/strings.g.dart';
 import '../../../../headphones/framework/headphones_settings.dart';
 import '../../../../headphones/huawei/settings.dart';
 import '../../../common/list_tile_switch.dart';
@@ -12,14 +12,13 @@ class AutoPauseSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l = AppLocalizations.of(context)!;
     return StreamBuilder(
       stream: headphones.settings.map((s) => s.autoPause),
       initialData: false,
       builder: (_, snap) {
         return ListTileSwitch(
-          title: Text(l.autoPause),
-          subtitle: Text(l.autoPauseDesc),
+          title: Text(context.t.autoPause),
+          subtitle: Text(context.t.autoPauseDesc),
           value: snap.data ?? false,
           onChanged:
               (newVal) => headphones.setSettings(

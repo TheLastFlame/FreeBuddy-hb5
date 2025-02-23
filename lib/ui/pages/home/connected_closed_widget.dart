@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../gen/i18n/strings.g.dart';
 import '../../../headphones/cubit/headphones_connection_cubit.dart';
 
 class ConnectedClosedWidget extends StatelessWidget {
@@ -9,7 +9,6 @@ class ConnectedClosedWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l = AppLocalizations.of(context)!;
     final t = Theme.of(context);
     final tt = t.textTheme;
     return Column(
@@ -17,18 +16,21 @@ class ConnectedClosedWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          l.pageHomeConnectedClosed,
+          context.t.pageHomeConnectedClosed,
           style: tt.displaySmall,
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 16),
-        Text(l.pageHomeConnectedClosedDesc, textAlign: TextAlign.center),
+        Text(
+          context.t.pageHomeConnectedClosedDesc,
+          textAlign: TextAlign.center,
+        ),
         const SizedBox(height: 32),
         FilledButton(
           onPressed: () => context.read<HeadphonesConnectionCubit>().connect(),
           child: Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Text(l.pageHomeConnectedClosedConnect),
+            child: Text(context.t.pageHomeConnectedClosedConnect),
           ),
         ),
       ],

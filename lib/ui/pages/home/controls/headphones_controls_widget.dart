@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../../gen/i18n/strings.g.dart';
 import '../../../../headphones/framework/anc.dart';
 import '../../../../headphones/framework/bluetooth_headphones.dart';
 import '../../../../headphones/framework/headphones_info.dart';
@@ -117,7 +117,7 @@ class _HeadphonesSettingsButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = Theme.of(context);
-    final l = AppLocalizations.of(context)!;
+
     return Padding(
       // TODO: Move this to theme stuff some day
       padding: t.cardTheme.margin ?? const EdgeInsets.all(4.0),
@@ -130,7 +130,7 @@ class _HeadphonesSettingsButton extends StatelessWidget {
             children: [
               const Icon(Icons.settings_outlined, size: 20),
               const SizedBox(width: 4),
-              Text(l.settings),
+              Text(context.t.settings),
             ],
           ),
         ),

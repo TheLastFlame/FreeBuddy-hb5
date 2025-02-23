@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../gen/i18n/strings.g.dart';
 import '../../../headphones/framework/headphones_settings.dart';
 import '../../../headphones/huawei/settings.dart';
 import '../../common/headphones_connection_ensuring_overlay.dart';
@@ -13,9 +13,8 @@ class HeadphonesSettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(title: Text(l.pageHeadphonesSettingsTitle)),
+      appBar: AppBar(title: Text(context.t.pageHeadphonesSettingsTitle)),
       body: Center(
         child: HeadphonesConnectionEnsuringOverlay(
           builder:

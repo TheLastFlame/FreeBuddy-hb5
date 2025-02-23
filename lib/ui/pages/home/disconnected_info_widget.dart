@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../gen/i18n/strings.g.dart';
 import '../../../headphones/cubit/headphones_connection_cubit.dart';
 
 class DisconnectedInfoWidget extends StatelessWidget {
@@ -9,19 +9,18 @@ class DisconnectedInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l = AppLocalizations.of(context)!;
     final t = Theme.of(context);
     final tt = t.textTheme;
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
-          l.pageHomeDisconnected,
+          context.t.pageHomeDisconnected,
           style: tt.displaySmall,
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 16),
-        Text(l.pageHomeDisconnectedDesc, textAlign: TextAlign.center),
+        Text(context.t.pageHomeDisconnectedDesc, textAlign: TextAlign.center),
         const SizedBox(height: 16),
         ElevatedButton(
           onPressed:
@@ -32,7 +31,7 @@ class DisconnectedInfoWidget extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              l.pageHomeDisconnectedOpenSettings,
+              context.t.pageHomeDisconnectedOpenSettings,
               textAlign: TextAlign.center,
             ),
           ),

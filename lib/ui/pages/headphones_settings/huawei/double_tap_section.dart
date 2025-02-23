@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../../gen/i18n/strings.g.dart';
 import '../../../../headphones/framework/headphones_settings.dart';
 import '../../../../headphones/huawei/settings.dart';
 import '../../../common/list_tile_radio.dart';
@@ -16,7 +16,6 @@ class DoubleTapSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = Theme.of(context);
     final tt = t.textTheme;
-    final l = AppLocalizations.of(context)!;
     return StreamBuilder(
       stream: headphones.settings.map(
         (s) => (l: s.doubleTapLeft, r: s.doubleTapRight),
@@ -30,8 +29,8 @@ class DoubleTapSection extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ListTileSwitch(
-              title: Text(l.pageHeadphonesSettingsDoubleTap),
-              subtitle: Text(l.pageHeadphonesSettingsDoubleTapDesc),
+              title: Text(context.t.pageHeadphonesSettingsDoubleTap),
+              subtitle: Text(context.t.pageHeadphonesSettingsDoubleTapDesc),
               value: enabled,
               onChanged: (newVal) {
                 final g = newVal ? DoubleTap.playPause : DoubleTap.nothing;
@@ -49,7 +48,7 @@ class DoubleTapSection extends StatelessWidget {
                     Expanded(
                       child: _DoubleTapSetting(
                         title: Text(
-                          l.pageHeadphonesSettingsLeftBud,
+                          context.t.pageHeadphonesSettingsLeftBud,
                           style: tt.titleMedium,
                         ),
                         value: dt.l,
@@ -64,7 +63,7 @@ class DoubleTapSection extends StatelessWidget {
                     Expanded(
                       child: _DoubleTapSetting(
                         title: Text(
-                          l.pageHeadphonesSettingsRightBud,
+                          context.t.pageHeadphonesSettingsRightBud,
                           style: tt.titleMedium,
                         ),
                         value: dt.r,
@@ -96,7 +95,6 @@ class _DoubleTapSetting extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l = AppLocalizations.of(context)!;
     return Card(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -109,35 +107,35 @@ class _DoubleTapSetting extends StatelessWidget {
             const Divider(indent: 32, endIndent: 32),
           ],
           ListTileRadio(
-            title: Text(l.pageHeadphonesSettingsDoubleTapPlayPause),
+            title: Text(context.t.pageHeadphonesSettingsDoubleTapPlayPause),
             value: DoubleTap.playPause,
             dense: true,
             groupValue: value,
             onChanged: onChanged,
           ),
           ListTileRadio(
-            title: Text(l.pageHeadphonesSettingsDoubleTapNextSong),
+            title: Text(context.t.pageHeadphonesSettingsDoubleTapNextSong),
             value: DoubleTap.next,
             dense: true,
             groupValue: value,
             onChanged: onChanged,
           ),
           ListTileRadio(
-            title: Text(l.pageHeadphonesSettingsDoubleTapPrevSong),
+            title: Text(context.t.pageHeadphonesSettingsDoubleTapPrevSong),
             value: DoubleTap.previous,
             dense: true,
             groupValue: value,
             onChanged: onChanged,
           ),
           ListTileRadio(
-            title: Text(l.pageHeadphonesSettingsDoubleTapAssist),
+            title: Text(context.t.pageHeadphonesSettingsDoubleTapAssist),
             value: DoubleTap.voiceAssistant,
             dense: true,
             groupValue: value,
             onChanged: onChanged,
           ),
           ListTileRadio(
-            title: Text(l.pageHeadphonesSettingsDoubleTapNone),
+            title: Text(context.t.pageHeadphonesSettingsDoubleTapNone),
             value: DoubleTap.nothing,
             dense: true,
             groupValue: value,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../gen/i18n/strings.g.dart';
 import '../../../headphones/cubit/headphones_connection_cubit.dart';
 
 class BluetoothDisabledInfoWidget extends StatelessWidget {
@@ -9,7 +9,6 @@ class BluetoothDisabledInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l = AppLocalizations.of(context)!;
     final t = Theme.of(context);
     final tt = t.textTheme;
     return Card(
@@ -19,7 +18,7 @@ class BluetoothDisabledInfoWidget extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              l.pageHomeBluetoothDisabled,
+              context.t.pageHomeBluetoothDisabled,
               style: tt.displaySmall,
               textAlign: TextAlign.center,
             ),
@@ -27,7 +26,7 @@ class BluetoothDisabledInfoWidget extends StatelessWidget {
             // the_last_bluetooth plugin doesn't support this for now
             // TextButton(
             //   onPressed: onEnable,
-            //   child: Text(l.pageHomeBluetoothDisabledEnable),
+            //   child: Text(context.t.pageHomeBluetoothDisabledEnable),
             // ),
             FilledButton(
               onPressed:
@@ -35,7 +34,7 @@ class BluetoothDisabledInfoWidget extends StatelessWidget {
                       context
                           .read<HeadphonesConnectionCubit>()
                           .openBluetoothSettings(),
-              child: Text(l.pageHomeBluetoothDisabledOpenSettings),
+              child: Text(context.t.pageHomeBluetoothDisabledOpenSettings),
             ),
           ],
         ),

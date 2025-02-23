@@ -1,8 +1,8 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../gen/i18n/strings.g.dart';
 import '../../../headphones/cubit/headphones_connection_cubit.dart';
 
 class NoPermissionInfoWidget extends StatelessWidget {
@@ -10,7 +10,6 @@ class NoPermissionInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l = AppLocalizations.of(context)!;
     final t = Theme.of(context);
     final tt = t.textTheme;
     return Card(
@@ -20,7 +19,7 @@ class NoPermissionInfoWidget extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              l.pageHomeNoPermission,
+              context.t.pageHomeNoPermission,
               style: tt.displaySmall,
               textAlign: TextAlign.center,
             ),
@@ -32,7 +31,7 @@ class NoPermissionInfoWidget extends StatelessWidget {
                           .read<HeadphonesConnectionCubit>()
                           .requestPermission(),
               child: Text(
-                l.pageHomeNoPermissionGrant,
+                context.t.pageHomeNoPermissionGrant,
                 textAlign: TextAlign.center,
               ),
             ),
@@ -42,7 +41,7 @@ class NoPermissionInfoWidget extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  l.pageHomeNoPermissionOpenSettings,
+                  context.t.pageHomeNoPermissionOpenSettings,
                   textAlign: TextAlign.center,
                 ),
               ),

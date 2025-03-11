@@ -16,7 +16,7 @@ class AncSwitcher extends StatelessWidget {
           child: SwitchListTile(
             title: Text(
               'ANC Mode',
-              style: TextStyle(
+              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                 color: Theme.of(context).colorScheme.onPrimaryContainer,
               ),
             ),

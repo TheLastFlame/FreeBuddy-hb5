@@ -5,9 +5,10 @@ import '../../../headphones/framework/headphones_settings.dart';
 import '../../../headphones/huawei/freebuds-5/freebuds5_settings.dart';
 import '../../../headphones/huawei/settings.dart';
 import '../../common/headphones_connection_ensuring_overlay.dart';
-import 'huawei/auto_pause_section.dart';
+import 'auto_pause_section.dart';
 import 'huawei/double_tap_section.dart';
 import 'huawei/hold_section.dart';
+import 'separate_action_selector.dart';
 
 class HeadphonesSettingsPage extends StatelessWidget {
   const HeadphonesSettingsPage({super.key});
@@ -40,7 +41,42 @@ List<Widget> widgetsForModel(HeadphonesSettings settings) {
             (v) => settings.setSettings(HuaweiFreeBuds5Settings(autoPause: v)),
       ),
       const Divider(indent: 16, endIndent: 16),
-      // DoubleTapSection(settings),
+
+      // const Divider(indent: 16, endIndent: 16),
+      SeparateActionSelector(
+        rightItems: [
+          'Play/Pause',
+          'Next track',
+          'Previous track',
+          'Wake voice assistant',
+        ],
+        onRightChanged: (v) {},
+        leftItems: [
+          'Play/Pause',
+          'Next track',
+          'Previous track',
+          'Wake voice assistant',
+        ],
+        onLeftChanged: (v) {},
+      ),
+
+      Padding(
+        padding: const EdgeInsets.only(left: 16, top: 16, bottom: 8),
+        child: Test(),
+      ),
+      RadioListTile(
+        value: 'test2',
+        groupValue: 'test',
+        onChanged: (v) {},
+        title: Text('None'),
+      ),
+      RadioListTile(
+        value: 'test',
+        groupValue: 'test',
+        onChanged: (v) {},
+        title: Text('Answer/End call'),
+      ),
+
       // const Divider(indent: 16, endIndent: 16),
       // HoldSection(settings),
       // const SizedBox(height: 64),
@@ -62,4 +98,13 @@ List<Widget> widgetsForModel(HeadphonesSettings settings) {
     ];
   }
   throw "You shouldn't be on this screen if you don't have settings!";
+}
+
+class Test extends StatelessWidget {
+  const Test({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text('Either bud', style: Theme.of(context).textTheme.headlineSmall);
+  }
 }

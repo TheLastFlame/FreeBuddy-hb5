@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../gen/i18n/strings.g.dart';
-import '../../../common/list_tile_switch.dart';
+import '../../../gen/i18n/strings.g.dart';
+import '../../common/list_tile_switch.dart';
 
 class AutoPauseSection extends StatelessWidget {
   const AutoPauseSection({

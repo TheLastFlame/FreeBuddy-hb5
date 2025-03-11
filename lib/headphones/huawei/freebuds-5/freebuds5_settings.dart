@@ -10,6 +10,7 @@ enum HoldWhenCall { none, rejectCall }
 
 enum Swipe { none, volume }
 
+
 class HuaweiFreeBuds5Settings {
   final DoubleTap? doubleTapLeft;
   final DoubleTap? doubleTapRight;

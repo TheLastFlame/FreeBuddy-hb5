@@ -71,6 +71,7 @@ dependencies:
   slang_flutter: ^4.4.0
 
 dependency_overrides:
+  jni: ^0.14.1
   ## flutter_test, as always...
   #  material_color_utilities: ^0.8.0
   logger: ^2.5.0

@@ -1,8 +1,9 @@
 {
-  "dart.flutterSdkPath": ".fvm/versions/master",
+  "dart.flutterSdkPath": "C:\\Users\\TheLa\\.puro\\envs\\master\\flutter",
   "cSpell.words": [
     "freebuddy",
     "freebuds",
     "logg"
-  ]
+  ],
+    "dart.sdkPath": "C:\\Users\\TheLa\\.puro\\envs\\master\\flutter\\bin\\cache\\dart-sdk"
 }

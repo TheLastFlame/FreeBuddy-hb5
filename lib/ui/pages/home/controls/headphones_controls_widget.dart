@@ -38,11 +38,11 @@ class HeadphonesControlsWidget extends StatelessWidget {
     //       features 🤷
     return Padding(
       padding:
-          const EdgeInsets.all(12.0) +
+          const EdgeInsets.all(8) +
           EdgeInsets.only(bottom: MediaQuery.viewPaddingOf(context).bottom),
       child:
           WindowSizeClass.of(context) == WindowSizeClass.compact
-              ? Column(
+              ? ListView(
                 children: [
                   StreamBuilder(
                     stream: headphones.bluetoothAlias,
@@ -50,24 +50,21 @@ class HeadphonesControlsWidget extends StatelessWidget {
                         (_, snap) => Text(
                           snap.data ?? headphones.bluetoothName,
                           style: tt.headlineMedium,
+                          textAlign: TextAlign.center,
                         ),
                   ),
-                  SizedBox(height: 16),
                   if (headphones is LRCBattery)
                     BatteryCircles(headphones as LRCBattery),
 
-                  Container(
-                    height: 200,
-                    width: double.infinity,
-                    decoration: BoxDecoration(),
-                  ),
-
-                  if (headphones is Anc) AncSwitcher(headphones as Anc),
                   if (headphones is HeadphonesSettings)
                     const Align(
                       alignment: Alignment.centerRight,
                       child: _HeadphonesSettingsButton(),
                     ),
+
+                  DevicesList(),
+
+                  if (headphones is Anc) AncSwitcher(headphones as Anc),
                 ],
               )
               : Row(
@@ -113,6 +110,77 @@ class HeadphonesControlsWidget extends StatelessWidget {
                   ),
                 ],
               ),
+    );
+  }
+}
+
+class DevicesList extends StatelessWidget {
+  const DevicesList({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Material(
+        child: InkWell(
+          borderRadius: BorderRadius.circular(16),
+          onTap: () => Navigator.pushNamed(context, '/devices'),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 8),
+              Row(
+                children: [
+                  SizedBox(width: 8),
+                  Text(
+                    'Devices',
+                    style: Theme.of(context).textTheme.headlineSmall,
+                  ),
+                  // Spacer(),
+                  SizedBox(width: 4),
+                  Icon(Icons.arrow_forward_ios, size: 18),
+                ],
+              ),
+              SizedBox(height: 16),
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      children: [
+                        CircleAvatar(
+                          radius: 30,
+                          child: Icon(Icons.phone_android),
+                        ),
+                        SizedBox(height: 8),
+                        Text('My Phone'),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        CircleAvatar(radius: 30, child: Icon(Icons.laptop)),
+                        SizedBox(height: 8),
+                        Text('My Laptop'),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        CircleAvatar(radius: 30, child: Icon(Icons.watch)),
+                        SizedBox(height: 8),
+                        Text('My Watch'),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 8),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

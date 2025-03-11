@@ -11,41 +11,48 @@ class BatteryCircles extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: lrcBattery.lrcBattery,
-      builder: (context, snapshot) {
-        final battery = snapshot.data;
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: StreamBuilder(
+        stream: lrcBattery.lrcBattery,
+        builder: (context, snapshot) {
+          final battery = snapshot.data;
 
-        return Row(
-          children: [
-            SizedBox(width: 16),
-            BatteryCircle(
-              value:
-                  battery?.levelLeft != null ? battery!.levelLeft! / 100 : null,
-              title: context.t.leftBudShort,
-              icon: FreebuddyIcons.leftEarbud,
-              isCharging: battery?.chargingLeft,
-            ),
-            BatteryCircle(
-              value:
-                  battery?.levelCase != null ? battery!.levelCase! / 100 : null,
-              title: context.t.caseShort,
-              icon: FreebuddyIcons.earbudsCase,
-              isCharging: battery?.chargingCase,
-            ),
-            BatteryCircle(
-              value:
-                  battery?.levelRight != null
-                      ? battery!.levelRight! / 100
-                      : null,
-              title: context.t.rightBudShort,
-              icon: FreebuddyIcons.rightEarbud,
-              isCharging: battery?.chargingRight,
-            ),
-            SizedBox(width: 16),
-          ],
-        );
-      },
+          return Row(
+            children: [
+              SizedBox(width: 16),
+              BatteryCircle(
+                value:
+                    battery?.levelLeft != null
+                        ? battery!.levelLeft! / 100
+                        : null,
+                title: context.t.leftBudShort,
+                icon: FreebuddyIcons.leftEarbud,
+                isCharging: battery?.chargingLeft,
+              ),
+              BatteryCircle(
+                value:
+                    battery?.levelCase != null
+                        ? battery!.levelCase! / 100
+                        : null,
+                title: context.t.caseShort,
+                icon: FreebuddyIcons.earbudsCase,
+                isCharging: battery?.chargingCase,
+              ),
+              BatteryCircle(
+                value:
+                    battery?.levelRight != null
+                        ? battery!.levelRight! / 100
+                        : null,
+                title: context.t.rightBudShort,
+                icon: FreebuddyIcons.rightEarbud,
+                isCharging: battery?.chargingRight,
+              ),
+              SizedBox(width: 16),
+            ],
+          );
+        },
+      ),
     );
   }
 }

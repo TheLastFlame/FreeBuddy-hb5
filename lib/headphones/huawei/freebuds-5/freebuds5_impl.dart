@@ -296,13 +296,21 @@ extension _FB4iAncMode on AncMode {
   };
 }
 
-extension _FB4iDoubleTap on DoubleTap {
+extension _FB5DoubleTap on DoubleTap {
   int get mbbCode => switch (this) {
     DoubleTap.none => 255,
     DoubleTap.voiceAssistant => 0,
     DoubleTap.playPause => 1,
     DoubleTap.next => 2,
     DoubleTap.previous => 7,
+  };
+}
+
+extension _FB5TripleTap on TripleTap {
+  int get mbbCode => switch (this) {
+    TripleTap.none => 255,
+    TripleTap.next => 2,
+    TripleTap.previous => 7,
   };
 }
 
